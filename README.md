@@ -2,7 +2,7 @@
 
 Goal: To improve the effeciency of memory utilization in NSO
 
-![image](https://user-images.githubusercontent.com/1794046/183038880-bd72905d-a205-404f-91cf-cd179b0c8ab1.png)
+![image](https://user-images.githubusercontent.com/1794046/183038880-bd72905d-a205-404f-91cf-cd179b0c8ab1.png)  
 On my left conserding each row as device configuration, which can be deduplicated in NCS DB.
 
 - [ ] Need to understand how NCS DB is works
