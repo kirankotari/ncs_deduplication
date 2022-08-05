@@ -1,9 +1,9 @@
 # ncs_deduplication
 
-This research is for effective utilization of NSO memory (RAM) on storing the network device data
+This research is for effective utilization of NSO memory (RAM) on storing the network devices data
 
 - [ ] Need to understand how NCS DB is working
-- [ ] Need to locate the duplicate blocks
+- [ ] Need to locate the duplicate blocks from all devices
 - [ ] When identified new need to apply deduplication technique
 - [ ] stats on this methodology
 
