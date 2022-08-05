@@ -1,21 +1,67 @@
 # ncs_deduplication
 
-This research is for effective utilization of NSO memory (RAM) on storing the network devices data
+Goal: To improve the effeciency of memory utilization in NSO
 
-- [ ] Need to understand how NCS DB is working
-- [ ] Need to locate the duplicate blocks from all devices
-- [ ] When identified new need to apply deduplication technique
-- [ ] stats on this methodology
+![image](https://user-images.githubusercontent.com/1794046/183038880-bd72905d-a205-404f-91cf-cd179b0c8ab1.png)
+On my left conserding each row as device configuration, which can be deduplicated in NCS DB.
 
-Deduplication Technique
+- [ ] Need to understand how NCS DB is works
+- [ ] Need to locate the duplicate device configuration (blocks) from all devices
+- [ ] To apply deduplication technique
+- [ ] Need to check the stats and imporvements on this approach
+
+
+Network Configuration deduplication:
 - [ ] mapping block to devices and ref. counts
      - [ ] global blocks
      - [ ] child blocks
+```
+interface GigabitEthernet0/1/3
+ no switchport
+ negotiation auto
+ no ip address
+ shutdown
+exit
+interface GigabitEthernet0/1/4
+ no switchport
+ negotiation auto
+ no ip address
+ shutdown
+exit
+interface GigabitEthernet0/1/5
+ no switchport
+ negotiation auto
+ no ip address
+ shutdown
+exit
+....
+```
+can be translated to deduplication
+```python
+{
+"Refcount": 3
+"Hash": 
+     {
+     "no switchport": None,
+     "negotiation auto": None,
+     "no ip address": None,
+     "shutdown": None,
+     "exit": None
+     }
+}
 
+interface GigabitEthernet0/1/3
+ expand(Hash)
+interface GigabitEthernet0/1/4
+ expand(Hash)
+interface GigabitEthernet0/1/5
+ expand(Hash)
+```
 
-===> recent techniques, currently thinking
---> translating the running config to JSON (shconfparser) --> Need to validate the Space on converting this approach. 
---> inside of keys if we find expand(Hash) --> it's deduplicated, collect and replace it
---> deduplicate blocks need to have (Hash, configuration)
+the translation I used here is from shconfparser where the device configuration is converted to JSON
+- Creating a block as shown in above
+- Refering them in the actual configuration this will save a lot a memory across all the devices imported to NSO
 
-===> need to read a lot about the deduplication methology and it's algorithms
+## TODO
+- need to read more about deduplication methodology 
+- need to read more about it's techniques and existing algorithms.
